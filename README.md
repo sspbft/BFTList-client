@@ -26,7 +26,7 @@ Make sure that BFTList is running either locally or on PlanetLab and simply supp
 ## Running clients distributed
 Run the following on each PlanetLab node, assuming that all repos are bootstrapped coorectly and residing in `/practicalbft`.
 ```
-cd /practicalbft/BFTList-client && source ./env/bin/activate && HOSTS_PATH=/practicalbft/BFTList/conf/hosts.txt python client/client.py [node_id] [nbr_of_clients] [reqs_per_client]
+./run_clients_distributed.sh [absolute_path_to_hosts_file] [nbr_of_clients] [reqs_per_client]
 ```
 
 ## Checking node consistency
