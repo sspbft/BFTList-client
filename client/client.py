@@ -35,10 +35,11 @@ async def req_applied(req, nodes):
         for n_id in nodes:
             n_data = get_data_for_node(nodes[n_id])
             last_req = n_data["REPLICATION_MODULE"]["last_req"]
-            if len(last_req) < client_id or last_req[client_id] == -1:
+            # wait for last_req to exist for this client
+            if (len(last_req) < client_id + 1 or last_req[client_id] == -1 or
+                last_req[client_id] is None):
                 continue
-            if last_req[client_id] is None:
-                continue
+
             last_execed = last_req[client_id]["request"]["client_request"]
             if last_execed["timestamp"] == req["timestamp"]:
                 applied_count += 1
@@ -66,7 +67,7 @@ async def main():
 
     tasks = []
     start_time = time.time()
-    for i in range(args.ID * 100, args.ID * 100 + client_count):
+    for i in range(args.ID * client_count, args.ID * client_count + client_count):
         t = run_client(i, args.REQS_PER_CLIENT, nodes)
         tasks.append(t)
     await asyncio.gather(*tasks)
