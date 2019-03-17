@@ -1,5 +1,5 @@
 # BFTList-client
-Code for running both centralized and distributed BFTList clients. Note that this code has been implemented as mere help tool, gving little time to follow best practices during development.
+Code for running both centralized and distributed BFTList clients. Note that this code has been implemented as mere help tool, giving little time to follow best practices during development.
 
 ## Setup
 ```
@@ -24,7 +24,7 @@ Make sure that BFTList is running either locally or on PlanetLab and simply supp
 ```
 
 ## Running clients distributed
-Run the following on each PlanetLab node, assuming that all repos are bootstrapped coorectly and residing in `/practicalbft`.
+Run the following on each PlanetLab node, assuming that all repos are bootstrapped correctly and residing in `/practicalbft`.
 ```
 ./run_clients_distributed.sh [absolute_path_to_hosts_file] [nbr_of_clients] [reqs_per_client]
 ```
