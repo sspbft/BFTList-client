@@ -27,9 +27,15 @@ if __name__ == "__main__":
     nodes = get_nodes(hosts_path)
     states = []
     seq_num = -1
+
     for n in nodes:
         url = f"http://{n['hostname']}:400{n['id']}/data"
         data = requests.get(url).json()
+
+        if len(data["REPLICATION_MODULE"]["pend_reqs"]) > 0:
+            print(f"{n['hostname']} still has requests pending")
+            sys.exit(1)
+
         states.append(data["REPLICATION_MODULE"]["rep_state"])
         n_seq_num = data["REPLICATION_MODULE"]["seq_num"]
         if n_seq_num > seq_num:
