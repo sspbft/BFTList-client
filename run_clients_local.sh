@@ -1,5 +1,6 @@
 #!/bin/bash
 # NOTE that nbr_of_clients should be a multiple of the number of nodes
+# WARNING not updated with scale_factor; do not use as of right now
 
 if [ "$#" -ne 3 ]; then
     echo "Run as ./run_clients [abs_path_to_hosts_file] [nbr_of_clients] [reqs_per_client]"

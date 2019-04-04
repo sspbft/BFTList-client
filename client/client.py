@@ -20,7 +20,8 @@ parser.add_argument("NBR_OF_CLIENTS", help="total number of clients",
                     type=int)
 parser.add_argument("REQS_PER_CLIENT",
                     help="requests to be sent for each client", type=int)
-
+parser.add_argument("SCALE_FACTOR",
+                    help="scale factor for deployment", type=int, default=1)
 
 async def req_applied(req, nodes):
     """Blocks until the supplied request is the last execed req on >= 1 nodes"""
@@ -62,11 +63,12 @@ async def run_client(client_id, reqs_count, nodes):
 async def main():
     args = parser.parse_args()
     nodes = get_nodes()
-    n = len(nodes)
+    n = int(len(nodes) / args.SCALE_FACTOR)
     client_count = int(args.NBR_OF_CLIENTS / n)
 
     tasks = []
     start_time = time.time()
+    print(args)
     for i in range(args.ID * client_count, args.ID * client_count + client_count):
         t = run_client(i, args.REQS_PER_CLIENT, nodes)
         tasks.append(t)
