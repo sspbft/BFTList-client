@@ -38,7 +38,7 @@ async def send_to_node(node: Node, req):
         r = requests.post(url, json=req)
         tries += 1
         if r.status_code != 200:
-            print(f"Coult not inject req {req} to node {node.id}, re-trying")
+            print(f"Could not inject req {req} to node {node.id}, re-trying")
             await asyncio.sleep(1)
         else:
             req_injected = True

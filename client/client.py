@@ -68,7 +68,6 @@ async def main():
 
     tasks = []
     start_time = time.time()
-    print(args)
     for i in range(args.ID * client_count, args.ID * client_count + client_count):
         t = run_client(i, args.REQS_PER_CLIENT, nodes)
         tasks.append(t)
