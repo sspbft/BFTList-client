@@ -11,14 +11,14 @@ from node import Node, get_nodes
 nodes = get_nodes()
 
 
-def build_payload(client_id, arg):
-    """Builds an APPEND request object to be sent to all BFTList nodes."""
+def build_payload(client_id, *args):
+    """Builds a NO_OP request object to be sent to all BFTList nodes."""
     return {
         "client_id": client_id,
         "timestamp": int(time.time()),
         "operation": {
-            "type": "APPEND",
-            "args": arg
+            "type": "NO_OP",
+            "args": args
         }
     }
 
@@ -51,7 +51,7 @@ async def broadcast(req):
     """Broadcast the request to all running BFTList nodes."""
     nodes = get_nodes()
     tasks = []
-    print(f"Client {req['client_id']} ==> Broadcasting req APPEND {req['operation']['args']} to all nodes")
+    print(f"Client {req['client_id']} ==> Broadcasting req NO_OP to all nodes")
     for _, node in nodes.items():
         tasks.append(send_to_node(node, req))
     # wait for request to be sent to all nodes
