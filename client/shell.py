@@ -4,16 +4,20 @@
 import asyncio
 from comm import build_payload, broadcast
 
-ops = ["NO_OP"]
+ops = ["NO_OP", "APPEND"]
 
 async def main():
-    print("Welcome to BFT Client shell! Available operations are 'NO_OP'")
+    print("Welcome to BFT Client shell! Available operations are 'NO_OP' and APPEND x")
     while True:
         s = input("BFTList Client > ")
-        if s not in ops:
+        parts = s.split(" ")
+        op = parts[0]
+        if op not in ops:
             print(f"Illegal operation {op}")
-            continue
-        payload = build_payload(0)
+        if len(parts) == 2:
+            payload = build_payload(0, op, parts[1])
+        else:
+            payload = build_payload(0, op)
         await broadcast(payload)
 
 # if __name__ == '__main__':

@@ -22,6 +22,7 @@ parser.add_argument("REQS_PER_CLIENT",
                     help="requests to be sent for each client", type=int)
 parser.add_argument("SCALE_FACTOR",
                     help="scale factor for deployment", type=int, default=1)
+parser.add_argument("OPERATION", help="scale factor for deployment")
 
 async def req_applied(req, nodes):
     """Blocks until the supplied request is the last execed req on >= 1 nodes"""
@@ -50,11 +51,11 @@ async def req_applied(req, nodes):
     return
 
 
-async def run_client(client_id, reqs_count, nodes):
+async def run_client(client_id, operation, reqs_count, nodes):
     """Send reqs_count reqs to all nodes with specified client_id."""
     start_val = client_id * 100
-    for r in range(start_val, start_val + reqs_count):
-        req = build_payload(client_id, r)
+    for x in range(start_val, start_val + reqs_count):
+        req = build_payload(client_id, operation, x)
         await broadcast(req)
         await req_applied(req, nodes)
     return
@@ -69,7 +70,7 @@ async def main():
     tasks = []
     start_time = time.time()
     for i in range(args.ID * client_count, args.ID * client_count + client_count):
-        t = run_client(i, args.REQS_PER_CLIENT, nodes)
+        t = run_client(i, args.OPERATION, args.REQS_PER_CLIENT, nodes)
         tasks.append(t)
     await asyncio.gather(*tasks)
     count = client_count * args.REQS_PER_CLIENT
