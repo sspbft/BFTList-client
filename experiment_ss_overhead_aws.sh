@@ -5,4 +5,4 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
-./run_clients_distributed.sh ../odin/hosts.txt $1 6 34 APPEND
+./run_clients_distributed_aws.sh ../odin/hosts.txt $1 6 34 NO_OP

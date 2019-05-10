@@ -6,10 +6,10 @@ if [ "$#" -ne 5 ]; then
     exit 1
 fi
 
-DEF_SLICE=chalmersple_2018_10_29
-DEF_SSH_KEY=~/.ssh/id_rsa_chalmers
+DEF_SLICE=ec2-user
+DEF_SSH_KEY=~/.ssh/aws_bftlist.pem
 
-echo "Launcher ==> Launching clients on PlanetLab nodes"
+echo "Launcher ==> Launching clients on AWS nodes"
 declare -a pids
 cat $1 | awk "NR % $2 == 0" | tr ',' ' ' | awk '{print $1","$2}' | while read line
 do
@@ -19,6 +19,7 @@ do
     echo $CMD
     echo "Launcher ==> Launching client on ${HOST}"
     ssh -o StrictHostKeyChecking=no -l ${SLICE:-$DEF_SLICE} -i ${SSH_KEY:-$DEF_SSH_KEY} ${HOST} ${CMD} &> /dev/null &
+    # ssh -o StrictHostKeyChecking=no -l ${SLICE:-$DEF_SLICE} -i ${SSH_KEY:-$DEF_SSH_KEY} ${HOST} ${CMD}
     pids[${ID}]=$!
 done
 echo "Launcher ==> Clients launched on PlanetLab nodes!"
