@@ -15,7 +15,7 @@ cat $1 | awk "NR % $2 == 0" | tr ',' ' ' | awk '{print $1","$2}' | while read li
 do
     ID=$(echo $line | tr ',' ' ' | awk '{print $1}')
     HOST=$(echo $line | tr ',' ' ' | awk '{print $2}')
-    CMD="cd /practicalbft/BFTList-client && source ./env/bin/activate && HOSTS_PATH=/practicalbft/BFTList/conf/hosts.txt python client/client.py $ID $3 $4 $2 $5"
+    CMD="cd /sspbft/BFTList-client && source ./env/bin/activate && HOSTS_PATH=/sspbft/BFTList/conf/hosts.txt python client/client.py $ID $3 $4 $2 $5"
     echo $CMD
     echo "Launcher ==> Launching client on ${HOST}"
     ssh -o StrictHostKeyChecking=no -l ${SLICE:-$DEF_SLICE} -i ${SSH_KEY:-$DEF_SSH_KEY} ${HOST} ${CMD} &> /dev/null &
