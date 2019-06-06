@@ -1,5 +1,5 @@
 # BFTList-client
-Code for running both centralized and distributed BFTList clients. Note that this code has been implemented as mere help tool, giving little time to follow best practices during development.
+Code for running both centralized and distributed BFTList clients. Note that this code has been implemented as a mere help tool, giving little time to follow best practices during development.
 
 ## Setup
 ```
